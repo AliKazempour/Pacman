@@ -1,0 +1,62 @@
+# Build directories
+/build/
+/bin/
+/out/
+/Debug/
+/Release/
+
+# Object files
+*.o
+*.obj
+
+# Compiled binary files
+*.exe
+*.out
+*.app
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Dependency files
+*.d
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeLists.txt.user
+
+# Code::Blocks
+*.depend
+*.layout
+*.cbp
+*.layout.save
+
+# Visual Studio
+.vs/
+*.sdf
+*.suo
+*.vcxproj*
+*.user
+*.ncb
+
+# Xcode
+*.xcworkspace
+*.xcodeproj
+*.xcuserstate
+
+# Qt Creator
+*.pro.user
+*.qmake.stash
+
+# CLion
+.idea/
+*.iml
+
+# Misc
+*.log
+*.swp
+*.DS_Store
