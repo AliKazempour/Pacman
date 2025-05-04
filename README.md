@@ -91,4 +91,4 @@ This adds some unpredictability and fun to the game, and helps balance the chall
 
 Here’s a  snapshot of the game in the terminal:
 
-![Game Preview](pacman.png)
+![Game Preview](Ali_Pacman.png)
