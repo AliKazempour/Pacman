@@ -287,7 +287,7 @@ void replay()
     int xGhosts[4] = {1, 1, 18, 18};
     int yGhosts[4] = {1, 18, 1, 18};
     char move;
-    int score = 0;
+    int score = 10;
     int food = 0;
     int life = 3;
     long int start = time(0);
@@ -582,7 +582,7 @@ void replay()
         cout << "\t\t\tScore: " << score;
         cout << endl;
         colorGame(arr, xGhosts, yGhosts, xPacman, yPacman);
-        if (score == food * 10 + 170)
+        if (score == food * 10 + 150)
         {
             cout << "Congratulation!!You won the game.";
             return;
