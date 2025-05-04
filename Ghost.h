@@ -6,29 +6,39 @@ bool canMove(int x, int y, string arr[20][20])
 {
     return x >= 0 && y >= 0 && x < 20 && y < 20 && arr[x][y] != "#" && arr[x][y] != "@";
 }
+bool isOccupiedByOtherGhost(int x, int y, int selfIndex, int xGhosts[4], int yGhosts[4])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (i != selfIndex && xGhosts[i] == x && yGhosts[i] == y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
-void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][20])
+void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
     int dx[4] = {-1, 1, 0, 0};
     int dy[4] = {0, 0, -1, 1};
     int order[4];
-
-    int index = 0;
+    int idx = 0;
 
     if (*xGhost < *xPacman)
-        order[index++] = 1;
+        order[idx++] = 1;
     else if (*xGhost > *xPacman)
-        order[index++] = 0;
+        order[idx++] = 0;
 
     if (*yGhost < *yPacman)
-        order[index++] = 3;
+        order[idx++] = 3;
     else if (*yGhost > *yPacman)
-        order[index++] = 2;
+        order[idx++] = 2;
 
     for (int i = 0; i < 4; i++)
     {
         bool found = false;
-        for (int j = 0; j < index; j++)
+        for (int j = 0; j < idx; j++)
         {
             if (order[j] == i)
             {
@@ -38,7 +48,7 @@ void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][
         }
         if (!found)
         {
-            order[index++] = i;
+            order[idx++] = i;
         }
     }
 
@@ -47,7 +57,8 @@ void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][
         int dir = order[i];
         int nx = *xGhost + dx[dir];
         int ny = *yGhost + dy[dir];
-        if (canMove(nx, ny, arr))
+
+        if (canMove(nx, ny, arr) && !isOccupiedByOtherGhost(nx, ny, index, xGhosts, yGhosts))
         {
             *xGhost = nx;
             *yGhost = ny;
@@ -55,6 +66,7 @@ void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][
         }
     }
 }
+
 void foolish1(int *xGhost1, int *yGhost1, string arr[20][20])
 {
     if (arr[*xGhost1][*yGhost1 + 1] != "#")
@@ -64,7 +76,8 @@ void foolish1(int *xGhost1, int *yGhost1, string arr[20][20])
     }
     else if (arr[*xGhost1 - 1][*yGhost1] != "#")
     {
-        (*xGhost1)--;
+       
+ (*xGhost1)--;
         return;
     }
     else if (arr[*xGhost1][*yGhost1 - 1] != "#")
@@ -78,7 +91,6 @@ void foolish1(int *xGhost1, int *yGhost1, string arr[20][20])
         return;
     }
 }
-
 void foolish2(int *xGhost1, int *yGhost1, string arr[20][20])
 {
     if (arr[*xGhost1 - 1][*yGhost1] != "#")

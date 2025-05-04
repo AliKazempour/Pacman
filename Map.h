@@ -442,14 +442,15 @@ void replay()
                 {
                     if (time(0) - start >= 0)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 1)
                 {
                     if (time(0) - start >= 3)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
+
                     }
                 }
             }
@@ -480,28 +481,28 @@ void replay()
                 {
                     if (time(0) - start >= 0)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 1)
                 {
                     if (time(0) - start >= 2)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 2)
                 {
                     if (time(0) - start >= 4)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 3)
                 {
                     if (time(0) - start >= 6)
                     {
-                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr);
+                        smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
             }
