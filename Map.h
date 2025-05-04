@@ -407,28 +407,28 @@ void replay()
                 {
                     if (time(0) - start >= 0)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 1)
                 {
                     if (time(0) - start >= 5)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 2)
                 {
                     if (time(0) - start >= 10)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 3)
                 {
                     if (time(0) - start >= 15)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
             }
@@ -450,7 +450,6 @@ void replay()
                     if (time(0) - start >= 3)
                     {
                         smart(&xPacman, &yPacman, &xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
-
                     }
                 }
             }
@@ -461,14 +460,14 @@ void replay()
                 {
                     if (time(0) - start >= 6)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
                 else if (i == 3)
                 {
                     if (time(0) - start >= 9)
                     {
-                        foolish(&xGhosts[i], &yGhosts[i], arr);
+                        foolish(&xGhosts[i], &yGhosts[i], arr, i, xGhosts, yGhosts);
                     }
                 }
             }

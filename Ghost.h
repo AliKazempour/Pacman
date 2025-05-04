@@ -67,20 +67,19 @@ void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][
     }
 }
 
-void foolish1(int *xGhost1, int *yGhost1, string arr[20][20])
+void foolish1(int *xGhost1, int *yGhost1, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
-    if (arr[*xGhost1][*yGhost1 + 1] != "#")
+    if (arr[*xGhost1][*yGhost1 + 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 + 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)++;
         return;
     }
-    else if (arr[*xGhost1 - 1][*yGhost1] != "#")
+    else if (arr[*xGhost1 - 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 - 1, *yGhost1, index, xGhosts, yGhosts))
     {
-       
- (*xGhost1)--;
+        (*xGhost1)--;
         return;
     }
-    else if (arr[*xGhost1][*yGhost1 - 1] != "#")
+    else if (arr[*xGhost1][*yGhost1 - 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 - 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)--;
         return;
@@ -91,19 +90,20 @@ void foolish1(int *xGhost1, int *yGhost1, string arr[20][20])
         return;
     }
 }
-void foolish2(int *xGhost1, int *yGhost1, string arr[20][20])
+
+void foolish2(int *xGhost1, int *yGhost1, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
-    if (arr[*xGhost1 - 1][*yGhost1] != "#")
+    if (arr[*xGhost1 - 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 - 1, *yGhost1, index, xGhosts, yGhosts))
     {
         (*xGhost1)--;
         return;
     }
-    else if (arr[*xGhost1][*yGhost1 - 1] != "#")
+    else if (arr[*xGhost1][*yGhost1 - 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 - 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)--;
         return;
     }
-    else if (arr[*xGhost1 + 1][*yGhost1] != "#")
+    else if (arr[*xGhost1 + 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 + 1, *yGhost1, index, xGhosts, yGhosts))
     {
         (*xGhost1)++;
         return;
@@ -115,19 +115,19 @@ void foolish2(int *xGhost1, int *yGhost1, string arr[20][20])
     }
 }
 
-void foolish3(int *xGhost1, int *yGhost1, string arr[20][20])
+void foolish3(int *xGhost1, int *yGhost1, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
-    if (arr[*xGhost1][*yGhost1 - 1] != "#")
+    if (arr[*xGhost1][*yGhost1 - 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 - 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)--;
         return;
     }
-    else if (arr[*xGhost1 + 1][*yGhost1] != "#")
+    else if (arr[*xGhost1 + 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 + 1, *yGhost1, index, xGhosts, yGhosts))
     {
         (*xGhost1)++;
         return;
     }
-    else if (arr[*xGhost1][*yGhost1 + 1] != "#")
+    else if (arr[*xGhost1][*yGhost1 + 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 + 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)++;
         return;
@@ -139,19 +139,19 @@ void foolish3(int *xGhost1, int *yGhost1, string arr[20][20])
     }
 }
 
-void foolish4(int *xGhost1, int *yGhost1, string arr[20][20])
+void foolish4(int *xGhost1, int *yGhost1, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
-    if (arr[*xGhost1 + 1][*yGhost1] != "#")
+    if (arr[*xGhost1 + 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 + 1, *yGhost1, index, xGhosts, yGhosts))
     {
         (*xGhost1)++;
         return;
     }
-    else if (arr[*xGhost1][*yGhost1 + 1] != "#")
+    else if (arr[*xGhost1][*yGhost1 + 1] != "#" && !isOccupiedByOtherGhost(*xGhost1, *yGhost1 + 1, index, xGhosts, yGhosts))
     {
         (*yGhost1)++;
         return;
     }
-    if (arr[*xGhost1 - 1][*yGhost1] != "#")
+    else if (arr[*xGhost1 - 1][*yGhost1] != "#" && !isOccupiedByOtherGhost(*xGhost1 - 1, *yGhost1, index, xGhosts, yGhosts))
     {
         (*xGhost1)--;
         return;
@@ -162,26 +162,28 @@ void foolish4(int *xGhost1, int *yGhost1, string arr[20][20])
         return;
     }
 }
-void foolish(int *xGhost1, int *yGhost1, string arr[20][20])
+
+void foolish(int *xGhost1, int *yGhost1, string arr[20][20], int index, int xGhosts[4], int yGhosts[4])
 {
     srand(time(0));
     int p = rand() % 4;
     if (p == 0)
     {
-        foolish1(xGhost1, yGhost1, arr);
+        foolish1(xGhost1, yGhost1, arr, index, xGhosts, yGhosts);
     }
     else if (p == 1)
     {
-        foolish2(xGhost1, yGhost1, arr);
+        foolish2(xGhost1, yGhost1, arr, index, xGhosts, yGhosts);
     }
     else if (p == 2)
     {
-        foolish3(xGhost1, yGhost1, arr);
+        foolish3(xGhost1, yGhost1, arr, index, xGhosts, yGhosts);
     }
     else if (p == 3)
     {
-        foolish4(xGhost1, yGhost1, arr);
+        foolish4(xGhost1, yGhost1, arr, index, xGhosts, yGhosts);
     }
+
     if (*xGhost1 == -1)
     {
         *xGhost1 = 19;
