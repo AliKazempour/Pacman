@@ -1,183 +1,57 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-void smart(int *xPacman, int *yPacman, int *xGhost1, int *yGhost1, string arr[20][20])
+bool canMove(int x, int y, string arr[20][20])
 {
-    if (*xGhost1 != *xPacman)
+    return x >= 0 && y >= 0 && x < 20 && y < 20 && arr[x][y] != "#" && arr[x][y] != "@";
+}
+
+void smart(int *xPacman, int *yPacman, int *xGhost, int *yGhost, string arr[20][20])
+{
+    int dx[4] = {-1, 1, 0, 0};
+    int dy[4] = {0, 0, -1, 1};
+    int order[4];
+
+    int index = 0;
+
+    if (*xGhost < *xPacman)
+        order[index++] = 1;
+    else if (*xGhost > *xPacman)
+        order[index++] = 0;
+
+    if (*yGhost < *yPacman)
+        order[index++] = 3;
+    else if (*yGhost > *yPacman)
+        order[index++] = 2;
+
+    for (int i = 0; i < 4; i++)
     {
-        if (*xGhost1 > *xPacman)
+        bool found = false;
+        for (int j = 0; j < index; j++)
         {
-            if (arr[*xGhost1 - 1][*yGhost1] != "#" && arr[*xGhost1 - 1][*yGhost1] != "@")
+            if (order[j] == i)
             {
-                (*xGhost1)--;
-                return;
-            }
-            else
-            {
-                bool moveGhost = false;
-                while (!moveGhost)
-                {
-                    int x = rand() % 3;
-                    if (x == 0)
-                    {
-                        if (arr[*xGhost1][*yGhost1 + 1] != "#" && arr[*xGhost1][*yGhost1 + 1] != "@")
-                        {
-                            (*yGhost1)++;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                    else if (x == 1)
-                    {
-                        if (arr[*xGhost1][*yGhost1 - 1] != "#" && arr[*xGhost1][*yGhost1 - 1] != "@")
-                        {
-                            (*yGhost1)--;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                    else if (x == 2)
-                    {
-                        if (arr[*xGhost1 + 1][*yGhost1] != "#" && arr[*xGhost1 + 1][*yGhost1] != "@")
-                        {
-                            (*xGhost1)++;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                }
+                found = true;
+                break;
             }
         }
-        else if (*xPacman > *xGhost1)
+        if (!found)
         {
-            if (arr[*xGhost1 + 1][*yGhost1] != "#" && arr[*xGhost1 + 1][*yGhost1] != "@")
-            {
-                (*xGhost1)++;
-                return;
-            }
-            else
-            {
-                bool moveGhost = false;
-                while (!moveGhost)
-                {
-                    int x = rand() % 3;
-                    if (x == 0)
-                    {
-                        if (arr[*xGhost1][*yGhost1 + 1] != "#" && arr[*xGhost1][*yGhost1 + 1] != "@")
-                        {
-                            (*yGhost1)++;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                    else if (x == 1)
-                    {
-                        if (arr[*xGhost1][*yGhost1 - 1] != "#" && arr[*xGhost1][*yGhost1 - 1] != "@")
-                        {
-                            (*yGhost1)--;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                    else if (x == 2)
-                    {
-                        if (arr[*xGhost1 - 1][*yGhost1] != "#" && arr[*xGhost1 - 1][*yGhost1] != "@")
-                        {
-                            (*xGhost1)--;
-                            moveGhost = true;
-                            return;
-                        }
-                    }
-                }
-            }
+            order[index++] = i;
         }
     }
-    if (*xGhost1 == *xPacman)
+
+    for (int i = 0; i < 4; i++)
     {
-        if (*yGhost1 != *yPacman)
+        int dir = order[i];
+        int nx = *xGhost + dx[dir];
+        int ny = *yGhost + dy[dir];
+        if (canMove(nx, ny, arr))
         {
-            if (*yGhost1 > *yPacman)
-            {
-                if (arr[*xGhost1][*yGhost1 - 1] != "#" && arr[*xGhost1][*yGhost1 - 1] != "@")
-                {
-                    (*yGhost1)--;
-                    return;
-                }
-                else
-                {
-                    bool moveGhost = false;
-                    while (!moveGhost)
-                    {
-                        int x = rand() % 3;
-                        if (x == 0)
-                        {
-                            if (arr[*xGhost1 + 1][*yGhost1] != "#" && arr[*xGhost1 + 1][*yGhost1] != "@")
-                            {
-                                (*xGhost1)++;
-                                moveGhost = true;
-                                return;
-                            }
-                        }
-                        if (x == 1)
-                        {
-                            if (arr[*xGhost1 - 1][*yGhost1] != "#" && arr[*xGhost1 - 1][*yGhost1] != "@" )
-                            {
-                                (*xGhost1)--;
-                                moveGhost = true;
-                                return;
-                            }
-                        }
-                        if (x == 2)
-                        {
-                            if (arr[*xGhost1][*yGhost1 + 1] != "#" && arr[*xGhost1][*yGhost1 + 1] != "@" )
-                            {
-                                (*yGhost1)++;
-                                moveGhost = true;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            if (*yPacman > *yGhost1)
-            {
-                if (arr[*xGhost1][*yGhost1 + 1] != "#" && arr[*xGhost1][*yGhost1 + 1] != "@")
-                {
-                    (*yGhost1)++;
-                    return;
-                }
-                else
-                {
-                    bool moveGhost = false;
-                    while (!moveGhost)
-                    {
-                        int x = rand() % 3;
-                        if (x == 0)
-                        {
-                            if (arr[*xGhost1 + 1][*yGhost1] != "#" && arr[*xGhost1 + 1][*yGhost1] != "@")
-                            {
-                                (*xGhost1)++;
-                                return;
-                            }
-                        }
-                        if (x == 1)
-                        {
-                            if (arr[*xGhost1 - 1][*yGhost1] != "#" && arr[*xGhost1 - 1][*yGhost1] != "@")
-                            {
-                                (*xGhost1)--;
-                                return;
-                            }
-                        }
-                        if (x == 2)
-                        {
-                            if (arr[*xGhost1][*yGhost1-1] != "#" && arr[*xGhost1][*yGhost1-1] != "@")
-                            {
-                                (*yGhost1)--;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
+            *xGhost = nx;
+            *yGhost = ny;
+            return;
         }
     }
 }
