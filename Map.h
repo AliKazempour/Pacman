@@ -167,45 +167,25 @@ void colorGame(string arr[20][20], int xGhosts[4], int yGhosts[4], int xPacman, 
 
 void movePacman(int *xPacman, int *yPacman, char move, string arr[20][20], int Score[20][20])
 {
-    if (move == 's')
-    {
+    if (move == 's' && *xPacman < 19 && arr[*xPacman + 1][*yPacman] != "#") {
         (*xPacman)++;
-        if (*xPacman > 0)
-        {
-            arr[*xPacman - 1][*yPacman] = " ";
-            Score[*xPacman - 1][*yPacman] = 0;
-        }
+        arr[*xPacman - 1][*yPacman] = " ";
+        Score[*xPacman - 1][*yPacman] = 0;
     }
-    if (move == 'w')
-    {
+    if (move == 'w' && *xPacman > 0 && arr[*xPacman - 1][*yPacman] != "#") {
         (*xPacman)--;
-        if (*xPacman > 0)
-        {
-            arr[*xPacman + 1][*yPacman] = " ";
-            Score[*xPacman + 1][*yPacman] = 0;
-        }
-        else if (*xPacman == 0 && *yPacman == 9)
-        {
-            arr[*xPacman + 1][*yPacman] = " ";
-        }
+        arr[*xPacman + 1][*yPacman] = " ";
+        Score[*xPacman + 1][*yPacman] = 0;
     }
-    if (move == 'a')
-    {
+    if (move == 'a' && *yPacman > 0 && arr[*xPacman][*yPacman - 1] != "#") {
         (*yPacman)--;
-        if (*yPacman > 0)
-        {
-            arr[*xPacman][*yPacman + 1] = " ";
-            Score[*xPacman][*yPacman + 1] = 0;
-        }
+        arr[*xPacman][*yPacman + 1] = " ";
+        Score[*xPacman][*yPacman + 1] = 0;
     }
-    if (move == 'd')
-    {
+    if (move == 'd' && *yPacman < 19 && arr[*xPacman][*yPacman + 1] != "#") {
         (*yPacman)++;
-        if (*yPacman > 0)
-        {
-            arr[*xPacman][*yPacman - 1] = " ";
-            Score[*xPacman][*yPacman - 1] = 0;
-        }
+        arr[*xPacman][*yPacman - 1] = " ";
+        Score[*xPacman][*yPacman - 1] = 0;
     }
 }
 
